@@ -25,7 +25,7 @@ class PrivateMembersDemo {
 
 class UsingPrivateMembersDemo {
     public static void main(String[] args) {
-        PrivateMembersDemo objA = new PrivateMembersDemo("Alpha");
+        PrivateMembersDemo objA = new PrivateMembersDemo("Salaries");
         PrivateMembersDemo objB = new PrivateMembersDemo("Bravo");
         PrivateMembersDemo objC = new PrivateMembersDemo("Charlie");
 
