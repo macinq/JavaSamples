@@ -3,26 +3,29 @@ package com.bobrovsky.task11;
 
 import java.util.Random;
 
-public class Inverse {
+public class Reverse {
     public static void main(String[] args) {
         Random random = new Random();
+        int size = 10;
+        int value = 10;
 
-        System.out.println("");
-        int[] array = new int[10];
-        for (int i = 0; i < 10; i++) {
-            int element = random.nextInt(10) + 1;
+        System.out.println("Direct:");
+        int[] array = new int[size];
+        for (int i = 0; i < size; i++) {
+            int element = random.nextInt(value) + 1;
             array[i] = element;
             System.out.print(array[i] + " ");
         }
 
         System.out.println();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < size / 2; i++) {
             int temp = array[i];
-            array[i] = array[10 - i - 1];
-            array[10 - i - 1] = temp;
+            array[i] = array[size - i - 1];
+            array[size - i - 1] = temp;
         }
 
-        for (int i = 0; i < 10; i++) {
+        System.out.println("Reverse:");
+        for (int i = 0; i < size; i++) {
             System.out.print(array[i] + " ");
         }
     }
