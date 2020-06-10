@@ -1,5 +1,7 @@
 package com.bobrovsky.task24_3;
 
+import java.util.*;
+
 public class Level1 {
   public static int ConquestCampaign(int N, int M, int L, int[] battalion) {
     int days = 0;
