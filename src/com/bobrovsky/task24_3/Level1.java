@@ -3,10 +3,21 @@ package com.bobrovsky.task24_3;
 import java.util.*;
 
 public class Level1 {
+  public static int verifier(int N, int M, int[][] arr) {
+    for (int i = 0; i < N; i++) {
+      for (int j = 0; j < M; j++) {
+        if (arr[i][j] == 0) {
+          return 0;
+        }
+      }
+    }
+    return 1;
+  }
+
   public static int ConquestCampaign(int N, int M, int L, int[] battalion) {
     int days = 0;
     int[][] area = new int[N][M];
-    int flag = 0;
+    int flag;
 
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < M; j++) {
@@ -16,6 +27,8 @@ public class Level1 {
       }
     }
     days++;
+
+    flag = verifier(N, M, area);
 
     while (flag != 1) {
       for (int i = 0; i < N; i++) {
@@ -66,17 +79,7 @@ public class Level1 {
         }
       }
       days++;
-
-      for (int i = 0; i < N; i++) {
-        for (int j = 0; j < M; j++) {
-          if (area[i][j] == 0) {
-            flag = 0;
-            break;
-          } else {
-            flag = 1;
-          }
-        }
-      }
+      flag = verifier(N, M, area);
     }
 
     return days;
