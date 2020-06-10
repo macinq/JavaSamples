@@ -3,7 +3,7 @@ package com.bobrovsky.task24_3;
 import java.util.*;
 
 public class Level1 {
-  public static int verifier(int N, int M, int[][] arr) {
+  public static int Verifier(int N, int M, int[][] arr) {
     for (int i = 0; i < N; i++) {
       for (int j = 0; j < M; j++) {
         if (arr[i][j] == 0) {
@@ -26,9 +26,12 @@ public class Level1 {
         }
       }
     }
-    days++;
 
-    flag = verifier(N, M, area);
+    flag = Verifier(N, M, area);
+
+    if (flag == 1) {
+      days++;
+    }
 
     while (flag != 1) {
       for (int i = 0; i < N; i++) {
@@ -79,7 +82,7 @@ public class Level1 {
         }
       }
       days++;
-      flag = verifier(N, M, area);
+      flag = Verifier(N, M, area);
     }
 
     return days;
