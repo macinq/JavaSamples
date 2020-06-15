@@ -146,7 +146,7 @@ public class Level1 {
       temp += len[i];
     }
 
-    str = (int) (Math.ceil(temp * 100000)) + "";
+    str = (int) (Math.round(temp * 100000)) + "";
 
 
     char[] ch = str.toCharArray();
