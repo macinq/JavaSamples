@@ -53,7 +53,7 @@ public class Level1 {
                 area[i - 1][j] = 1;
               }
             }
-            if ((i >= 0) && (i >= 0) && (i < N - 1) && (j <= M - 1)) {
+            if ((i >= 0) && (j >= 0) && (i < N - 1) && (j <= M - 1)) {
               if (area[i + 1][j] == 0) {
                 area[i + 1][j] = 1;
               }
