@@ -16,12 +16,59 @@ public class Level1 {
         str = str.concat(words[i]).concat(" ");
         count += words[i].length();
         spaces++;
+      } else if (words[i].length() > len) {
+        char[] big = words[i].toCharArray();
+        char[] small = new char[words[i].length()];
+        for (int k = 0; k < big.length; k++) {
+          if (k == len) {
+            for (int m = 0, n = k; n < big.length; m++, n++) {
+              small[m] = big[n];
+              big[n] = ' ';
+            }
+            if (new String(small).trim().length() <= len) {
+              if (str.charAt(str.length() - 1) == '\n' && i == words.length - 1) {
+                str = str.concat(new String(big).trim()).concat(" ");
+                str = str.concat("\n");
+                lines++;
+                str = str.concat(new String(small).trim()).concat(" ");
+                count = 0;
+                spaces = 0;
+              } else if (str.charAt(str.length() - 1) == '\n') {
+                str = str.concat(new String(big).trim()).concat(" ");
+                str = str.concat("\n");
+                lines++;
+                str = str.concat(new String(small).trim()).concat(" ");
+                str = str.concat("\n");
+                count = 0;
+                spaces = 0;
+              } else {
+                str = str.concat("\n");
+                lines++;
+                str = str.concat(new String(big).trim()).concat(" ");
+                str = str.concat("\n");
+                lines++;
+                str = str.concat(new String(small).trim()).concat(" ");
+                str = str.concat("\n");
+                lines++;
+                count = 0;
+                spaces = 0;
+              }
+
+              for (int j = 0; j < big.length; j++) {
+                big[j] = ' ';
+              }
+              for (int j = 0; j < small.length; j++) {
+                big[j] = ' ';
+              }
+            }
+          }
+        }
       } else {
         count = 0;
         spaces = 0;
         str = str.concat("\n");
-        i--;
         lines++;
+        i--;
       }
     }
 
@@ -32,7 +79,7 @@ public class Level1 {
     count = 0;
 
     for (int i = 0; i < strings.length; i++) {
-      Arrays.fill(temp, ' '); // обнуляем массив, чтобы к коротким строкам не добавилась часть предыдущей длинной
+      Arrays.fill(temp, ' ');
       for (int k = 0; count < ch.length; k++) {
         if (ch[count] == '\n' || count == ch.length - 1) {
           if (count == ch.length - 1) {
