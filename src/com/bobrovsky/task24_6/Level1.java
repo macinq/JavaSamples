@@ -63,25 +63,27 @@ public class Level1 {
 
     String[] strings = new String[lines];
     int[] res = new int[lines];
-    char[] ch = str.trim().toCharArray();
-    char[] temp = new char[len + 1]; // поскольку добавляется регулярное выражение \n
-    count = 0;
+    if (lines == 0) {
+      res = new int[1];
+    } else {
+      char[] ch = str.trim().toCharArray();
+      char[] temp = new char[len + 1]; // поскольку добавляется регулярное выражение \n
+      count = 0;
 
-    for (
-            int i = 0;
-            i < strings.length; i++) {
-      Arrays.fill(temp, ' ');
-      for (int k = 0; count < ch.length; k++) {
-        if (ch[count] == '\n' || count == ch.length - 1) {
-          if (count == ch.length - 1) {
-            temp[k] = ch[ch.length - 1];
+      for (int i = 0; i < strings.length; i++) {
+        Arrays.fill(temp, ' ');
+        for (int k = 0; count < ch.length; k++) {
+          if (ch[count] == '\n' || count == ch.length - 1) {
+            if (count == ch.length - 1) {
+              temp[k] = ch[ch.length - 1];
+            }
+            strings[i] = new String(temp).trim();
+            count++;
+            break;
+          } else {
+            temp[k] = ch[count];
+            count++;
           }
-          strings[i] = new String(temp).trim();
-          count++;
-          break;
-        } else {
-          temp[k] = ch[count];
-          count++;
         }
       }
     }
@@ -96,17 +98,9 @@ public class Level1 {
       }
     }
 
-    for (
-            int i = 0;
-            i < words.length; i++) {
+    for (int i = 0; i < words.length; i++) {
       System.out.println(words[i]);
     }
-
-    System.out.println();
-    System.out.println(str);
-    System.out.println(lines);
-    System.out.println(Arrays.toString(strings));
-
 
     return res;
   }
