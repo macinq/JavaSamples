@@ -11,56 +11,63 @@ public class Level1 {
 
     String[] words = s.trim().split("\\s+");
 
-    for (int i = 0; i < words.length; i++) {
-      if (count + words[i].length() + spaces <= len) {
-        str = str.concat(words[i]).concat(" ");
-        count += words[i].length();
-        spaces++;
-      } else if (words[i].length() > len) {
-        if (len - (count + spaces) < 0) {
+    if (len > 0) {
+      for (int i = 0; i < words.length; i++) {
+        if (count + words[i].length() + spaces <= len) {
+          str = str.concat(words[i]).concat(" ");
+          count += words[i].length();
+          spaces++;
+        } else if (words[i].length() > len) {
+          if (len - (count + spaces) < 0) {
+            count = 0;
+            spaces = 0;
+            str = str.concat("\n");
+            lines++;
+          }
+          char[] big = words[i].toCharArray();
+          char[] small = new char[len - (count + spaces)];
+
+          while (len < big.length) {
+            if (str.charAt(str.length() - 1) == '\n') {
+              count = 0;
+              spaces = 0;
+              small = new char[len];
+            }
+            for (int j = 0; j < len - (count + spaces); j++) {
+              small[j] = big[j];
+              big[j] = ' ';
+            }
+            String temp = new String(big).trim();
+            big = temp.toCharArray();
+            str = str.concat(new String(small).trim()).concat("\n");
+            count = 0;
+            spaces = 0;
+            if (len >= big.length) {
+              str = str.concat(new String(big).trim().concat(" "));
+              count = big.length;
+              spaces++;
+              lines++;
+            } else if (len < big.length) {
+              count = 0;
+              spaces = 0;
+              lines++;
+            }
+          }
+        } else {
           count = 0;
           spaces = 0;
           str = str.concat("\n");
           lines++;
+          i--;
         }
-        char[] big = words[i].toCharArray();
-        char[] small = new char[len - (count + spaces)];
-
-        while (len < big.length) {
-          if (str.charAt(str.length() - 1) == '\n') {
-            count = 0;
-            spaces = 0;
-            small = new char[len];
-          }
-          for (int j = 0; j < len - (count + spaces); j++) {
-            small[j] = big[j];
-            big[j] = ' ';
-          }
-          String temp = new String(big).trim();
-          big = temp.toCharArray();
-          str = str.concat(new String(small).trim()).concat("\n");
-          count = 0;
-          spaces = 0;
-          if (len >= big.length) {
-            str = str.concat(new String(big).trim().concat(" "));
-            count = big.length;
-            spaces++;
-            lines++;
-          } else if (len < big.length) {
-            count = 0;
-            spaces = 0;
-            lines++;
-          }
-        }
-      } else {
-        count = 0;
-        spaces = 0;
-        str = str.concat("\n");
-        lines++;
-        i--;
       }
     }
 
+    if (str.length() == 2) {
+      str.concat("\n");
+      lines++;
+    }
+    
     String[] strings = new String[lines];
     int[] res = new int[lines];
     if (lines == 0) {
@@ -96,10 +103,6 @@ public class Level1 {
       } else {
         res[i] = 0;
       }
-    }
-
-    for (int i = 0; i < words.length; i++) {
-      System.out.println(words[i]);
     }
 
     return res;
