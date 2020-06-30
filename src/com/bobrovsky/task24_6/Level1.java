@@ -7,7 +7,7 @@ public class Level1 {
     String str = "";
     int count = 0;
     int spaces = 0;
-    int lines = 1; // при подсчёте не учитывается последняя строка, поэтому 1
+    int lines = 0;
 
     String[] words = s.trim().split("\\s+");
 
@@ -17,50 +17,39 @@ public class Level1 {
         count += words[i].length();
         spaces++;
       } else if (words[i].length() > len) {
+        if (len - (count + spaces) < 0) {
+          count = 0;
+          spaces = 0;
+          str = str.concat("\n");
+          lines++;
+        }
         char[] big = words[i].toCharArray();
-        char[] small = new char[words[i].length()];
-        for (int k = 0; k < big.length; k++) {
-          if (k == len) {
-            for (int m = 0, n = k; n < big.length; m++, n++) {
-              small[m] = big[n];
-              big[n] = ' ';
-            }
-            if (new String(small).trim().length() <= len) {
-              if (str.charAt(str.length() - 1) == '\n' && i == words.length - 1) {
-                str = str.concat(new String(big).trim()).concat(" ");
-                str = str.concat("\n");
-                lines++;
-                str = str.concat(new String(small).trim()).concat(" ");
-                count = 0;
-                spaces = 0;
-              } else if (str.charAt(str.length() - 1) == '\n') {
-                str = str.concat(new String(big).trim()).concat(" ");
-                str = str.concat("\n");
-                lines++;
-                str = str.concat(new String(small).trim()).concat(" ");
-                str = str.concat("\n");
-                count = 0;
-                spaces = 0;
-              } else {
-                str = str.concat("\n");
-                lines++;
-                str = str.concat(new String(big).trim()).concat(" ");
-                str = str.concat("\n");
-                lines++;
-                str = str.concat(new String(small).trim()).concat(" ");
-                str = str.concat("\n");
-                lines++;
-                count = 0;
-                spaces = 0;
-              }
+        char[] small = new char[len - (count + spaces)];
 
-              for (int j = 0; j < big.length; j++) {
-                big[j] = ' ';
-              }
-              for (int j = 0; j < small.length; j++) {
-                big[j] = ' ';
-              }
-            }
+        while (len < big.length) {
+          if (str.charAt(str.length() - 1) == '\n') {
+            count = 0;
+            spaces = 0;
+            small = new char[len];
+          }
+          for (int j = 0; j < len - (count + spaces); j++) {
+            small[j] = big[j];
+            big[j] = ' ';
+          }
+          String temp = new String(big).trim();
+          big = temp.toCharArray();
+          str = str.concat(new String(small).trim()).concat("\n");
+          count = 0;
+          spaces = 0;
+          if (len >= big.length) {
+            str = str.concat(new String(big).trim().concat(" "));
+            count = big.length;
+            spaces++;
+            lines++;
+          } else if (len < big.length) {
+            count = 0;
+            spaces = 0;
+            lines++;
           }
         }
       } else {
@@ -78,7 +67,9 @@ public class Level1 {
     char[] temp = new char[len + 1]; // поскольку добавляется регулярное выражение \n
     count = 0;
 
-    for (int i = 0; i < strings.length; i++) {
+    for (
+            int i = 0;
+            i < strings.length; i++) {
       Arrays.fill(temp, ' ');
       for (int k = 0; count < ch.length; k++) {
         if (ch[count] == '\n' || count == ch.length - 1) {
@@ -104,6 +95,19 @@ public class Level1 {
         res[i] = 0;
       }
     }
+
+    for (
+            int i = 0;
+            i < words.length; i++) {
+      System.out.println(words[i]);
+    }
+
+    System.out.println();
+    System.out.println(str);
+    System.out.println(lines);
+    System.out.println(Arrays.toString(strings));
+
+
     return res;
   }
 }
